@@ -1,9 +1,0 @@
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\bin\Release\Color Changer.exe
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\bin\Release\Color Changer.pdb
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\ResolveAssemblyReference.cache
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\Color_Changer.Form1.resources
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\Color_Changer.Properties.Resources.resources
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\ResGen.read.1.tlog
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\ResGen.write.1.tlog
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\Color Changer.exe
-c:\users\seobi-tazs_c\documents\visual studio 2010\Projects\Color Changer\Color Changer\obj\x86\Release\Color Changer.pdb
