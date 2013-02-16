@@ -12,27 +12,24 @@ namespace Whos_Clues
   {
     #region vars
     private bool walking, thinking, right;
-    private int thinkCount, temp, YY;
-    private Bitmap img;
-    private Bitmap cur;
-    private Graphics g;
+    private int thinkCount, walkCount, temp, YY;
+    private Bitmap img, cur;
     private Random r;
-    private int walkCount;
     #endregion
 	
     public Form1()
     {
       InitializeComponent();
-      r = new Random();
-
-	  #region init
+      
+			#region init
+			r = new Random();
       thinkCount = r.Next(10) * 3 + 3;
       thinking   = true;
       walking    = false;
       right      = false;
       walkCount  = 0;
       img = new Bitmap(Image.FromFile("Settings\\stebe.png"));
-	  #endregion
+			#endregion
     }
 
     private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,10 +40,9 @@ namespace Whos_Clues
 
     private void timer1_Tick(object sender, EventArgs e)
     {
-      if(g != null) g.Dispose();
       GC.Collect();
    
-	  #region move sprite
+			#region move sprite
       if (thinking)
       {
         if (thinkCount-- > 0)
@@ -95,7 +91,7 @@ namespace Whos_Clues
         this.BackgroundImage = cur;
         this.Location = new Point(this.Location.X + ((right) ? 4 : -4), YY);
       }//:walking 
-	  #endregion
+			#endregion
     }
 
     private void Form1_Load(object sender, EventArgs e)
