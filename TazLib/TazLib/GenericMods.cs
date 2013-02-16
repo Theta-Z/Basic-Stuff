@@ -68,6 +68,7 @@ namespace TazLib
       }
       catch (Exception e)
       {
+				if (!Directory.Exists("logs\\")) Directory.CreateDirectory("logs\\");
         if (!File.Exists("logs\\ERR_LG.TKQ")) File.Create("logs\\ERR_LG.TKQ");
         StreamReader SR = new StreamReader("logs\\ERR_LG.TKQ");
         string temp = SR.ReadToEnd();
