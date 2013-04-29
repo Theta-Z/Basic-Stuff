@@ -58,6 +58,7 @@
       this.lb_SIZEPX = new System.Windows.Forms.Label();
       this.lb_SIZE = new System.Windows.Forms.Label();
       this.tb_BRUSHSIZE = new System.Windows.Forms.TrackBar();
+      this.blackAndWhiteExperimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.menuStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pb_IMG)).BeginInit();
       this.groupBox1.SuspendLayout();
@@ -142,6 +143,7 @@
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.blackAndWhiteExperimentalToolStripMenuItem,
             this.ts_BW,
             this.ts_GRYSCL,
             this.removeColourToolStripMenuItem});
@@ -152,8 +154,8 @@
       // ts_BW
       // 
       this.ts_BW.Name = "ts_BW";
-      this.ts_BW.Size = new System.Drawing.Size(159, 22);
-      this.ts_BW.Text = "Black and White";
+      this.ts_BW.Size = new System.Drawing.Size(238, 22);
+      this.ts_BW.Text = "Black and White (Otsu)";
       this.ts_BW.Click += new System.EventHandler(this.ts_BW_Click);
       // 
       // ts_GRYSCL
@@ -322,6 +324,13 @@
       this.tb_BRUSHSIZE.Value = 1;
       this.tb_BRUSHSIZE.Scroll += new System.EventHandler(this.tb_BRUSHSIZE_Scroll);
       // 
+      // blackAndWhiteExperimentalToolStripMenuItem
+      // 
+      this.blackAndWhiteExperimentalToolStripMenuItem.Name = "blackAndWhiteExperimentalToolStripMenuItem";
+      this.blackAndWhiteExperimentalToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+      this.blackAndWhiteExperimentalToolStripMenuItem.Text = "Black and White (Experimental)";
+      this.blackAndWhiteExperimentalToolStripMenuItem.Click += new System.EventHandler(this.blackAndWhiteExperimentalToolStripMenuItem_Click);
+      // 
       // Form1
       // 
       this.AllowDrop = true;
@@ -381,6 +390,7 @@
     private System.Windows.Forms.ToolStripMenuItem redToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem greenToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem blackAndWhiteExperimentalToolStripMenuItem;
   }
 }
 

@@ -464,6 +464,90 @@ namespace Color_Changer_v2._0
       return;
     }
 
+    //:Makeshift method
+    //:Originally experimental while deriving otsu's thresholding technique.
+    //:Seems to work well when Otsu's doesnt.
+    private void BW2()
+    {
+      int[] lvls = new int[256];
+      Color c;
+
+      #region find grayscale levels
+      for (int i = 1; i < bp.Width; i++)
+        for (int j = 1; j < bp.Height; j++)
+        {
+          c = bp.GetPixel(i, j);
+          lvls[(int)((c.R + c.G + c.B) / 3)]++;
+        }
+      #endregion
+
+      #region find 2 largest areas
+      //:Now we have the grayscale levels.
+      //:Find 2 largest areas, and set the thresh to be inbetween them.
+      int largest = 0, large = 0;
+      int largest_index = 0, large_index = 0;
+
+      for (int i = 0; i < 256; i++)
+      {
+        //:If current is larger than 2nd largest, 2nd largest = current.
+        if (lvls[i] > large)
+        {
+          large = lvls[i];
+          large_index = i;
+        }
+        //:If current is larger than largest, largest = current, 2nd largest = old largest.
+        if (lvls[i] > largest)
+        {
+          large = largest;
+          large_index = largest_index;
+
+          largest = lvls[i];
+          largest_index = i;
+        }
+      }//:end forloop
+
+      if (largest_index < large_index)
+      {
+        int temp = largest_index;
+        largest_index = large_index;
+        large_index = temp;
+      }
+
+      //:Get the average and threshold
+      int total = 0;
+      for (int i = large_index; i <= largest_index; i++)
+        total += lvls[i];
+
+      ulong average = 0;
+      for (int i = large_index; i <= largest_index; i++)
+        average += (ulong)(lvls[i] * i);
+
+      average = average / (ulong)total;
+
+      int THRESHOLD = Int32.Parse(average + "");
+      #endregion
+
+      #region make black and white image
+      for (int i = 1; i < bp.Width; i++)
+        for (int j = 1; j < bp.Height; j++)
+        {
+          c = bp.GetPixel(i, j);
+          if (((c.R + c.B + c.G) / 3) < THRESHOLD)
+          {
+            //:If the grayscale is less than threshold -> White otherwise, black
+            bp.SetPixel(i, j, Color.Black);
+          }
+          else
+          {
+            bp.SetPixel(i, j, Color.White);
+          }
+        }
+
+      //:Done!
+      ready = true;
+      #endregion
+    }
+
     private void ts_BW_Click(object sender, EventArgs e)
     {
       if (!ready) return;
@@ -481,6 +565,26 @@ namespace Color_Changer_v2._0
       //:--One starting bottom, one top. Meet in the middle.
       //:---So far there is no reason to do this.
       Thread th = new Thread(new ThreadStart(BW));
+      th.Start();
+    }
+
+    private void blackAndWhiteExperimentalToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (!ready) return;
+
+      //:We are now working, so we are not ready.
+      ready = false;
+      bp = new Bitmap(pb_IMG.Image);
+
+      //:Start the timer for when we are done with the below thread.
+      processing.Interval = 400;
+      processing.Start();
+
+      //:Thread to do bw.
+      //:-At a later date, this may be turned into 2 threads.
+      //:--One starting bottom, one top. Meet in the middle.
+      //:---So far there is no reason to do this.
+      Thread th = new Thread(new ThreadStart(BW2));
       th.Start();
     }
     #endregion
@@ -529,7 +633,7 @@ namespace Color_Changer_v2._0
       th.Start();
     }
 
-    #endregion
+
 
     private void greenToolStripMenuItem_Click(object sender, EventArgs e)
     {
@@ -569,6 +673,7 @@ namespace Color_Changer_v2._0
       //:---So far there is no reason to do this.
       Thread th = new Thread(new ThreadStart(RMBlue));
       th.Start();
-    }
+    }   
+    #endregion
   }
 }
