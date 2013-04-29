@@ -176,20 +176,23 @@
       // redToolStripMenuItem
       // 
       this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-      this.redToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+      this.redToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.redToolStripMenuItem.Text = "Red";
+      this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
       // 
       // greenToolStripMenuItem
       // 
       this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-      this.greenToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+      this.greenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.greenToolStripMenuItem.Text = "Green";
+      this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
       // 
       // blueToolStripMenuItem
       // 
       this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-      this.blueToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+      this.blueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
       this.blueToolStripMenuItem.Text = "Blue";
+      this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
       // 
       // toolsToolStripMenuItem
       // 
@@ -335,6 +338,7 @@
       this.MinimumSize = new System.Drawing.Size(1024, 680);
       this.Name = "Form1";
       this.Text = "Image Colour Changer v2.0";
+      this.Load += new System.EventHandler(this.Form1_Load);
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pb_IMG)).EndInit();

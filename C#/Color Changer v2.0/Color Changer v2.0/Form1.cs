@@ -220,6 +220,7 @@ namespace Color_Changer_v2._0
 
     void pb_IMG_DragDrop(object sender, DragEventArgs e)
     {
+      ready = false;
       //:Get the filename of the DragDrop file.
       Array file_arr = (Array)e.Data.GetData("FileName");
 
@@ -233,17 +234,39 @@ namespace Color_Changer_v2._0
 
           if (extension.Equals(".png") || extension.Equals(".jpg") || extension.Equals(".bmp") || extension.Equals(".gif"))
           {
+            #region remove 'old' image
+            if (old != null)
+            {
+              old.Dispose();
+              old = null;
+            }
+            #endregion
+
             //:We "should" have the filename now.
             //:-Cast the Data from DragArgs as a string and get the first one
             //:--The filename.
             filename = ((string[])file_arr)[0];
 
+            if (pb_IMG.Image != null)
+            {
+              pb_IMG.Image.Dispose();
+              GC.Collect();
+            }
+
             pb_IMG.Image = Image.FromFile(filename);
+            if (bp != null) bp.Dispose();
+
+
+            bp = (Bitmap)Image.FromFile(filename);
+            GC.Collect();
+
             ready = true;
           }
           else
             MessageBox.Show("Accepted file types are png, jpg, bmp, gif.", "Invalid file type!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+      ready = true;
     }
     #endregion
 
@@ -365,16 +388,7 @@ namespace Color_Changer_v2._0
     #region GRAYSCALE OPERATIONS
     private void GrayScale()
     {
-      int gray;
-      Color  c;
-
-      for(int i = 1; i < bp.Width; i++)
-        for (int j = 1; j < bp.Height; j++)
-        {
-          c = bp.GetPixel(i, j);
-          gray = ((c.R + c.G + c.B) / 3);
-          bp.SetPixel(i,j, Color.FromArgb(gray, gray, gray));
-        }
+      Color_Changer_v2._0.GrayScale.Prepare(ref bp);
       //:Ready to show the image!
       ready = true;
     }
@@ -445,83 +459,9 @@ namespace Color_Changer_v2._0
     #region black/white AUTO  using OTSU
     private void BW()
     {
-      int[] lvls = new int[256];
-      Color c;
-
-      #region find grayscale levels
-      for (int i = 1; i < bp.Width; i++)
-        for (int j = 1; j < bp.Height; j++)
-        {
-          c = bp.GetPixel(i, j);
-          lvls[(int)((c.R + c.G + c.B) / 3)]++;
-        }
-      #endregion
-
-      #region find 2 largest areas
-      //:Now we have the grayscale levels.
-      //:Find 2 largest areas, and set the thresh to be inbetween them.
-      int largest = 0, large = 0;
-      int largest_index = 0, large_index = 0;
-
-      for (int i = 0; i < 256; i++)
-      {
-        //:If current is larger than 2nd largest, 2nd largest = current.
-        if (lvls[i] > large)
-        {
-          large = lvls[i];
-          large_index = i;
-        }
-        //:If current is larger than largest, largest = current, 2nd largest = old largest.
-        if (lvls[i] > largest)
-        {
-          large         = largest;
-          large_index   = largest_index;
-
-          largest       = lvls[i];
-          largest_index = i;
-        }
-      }//:end forloop
-
-      if (largest_index < large_index)
-      {
-        int temp        = largest_index;
-        largest_index   = large_index;
-        large_index     = temp;
-      }
-
-      //:Get the average and threshold
-      int total = 0;
-      for (int i = large_index; i <= largest_index; i++)
-        total += lvls[i];
-
-      ulong average = 0;
-      for (int i = large_index; i <= largest_index; i++)
-        average += (ulong)(lvls[i] * i);
-
-      average = average / (ulong)total;
-
-      int THRESHOLD = Int32.Parse(average + "");
-      #endregion
-
-      #region make black and white image
-      for(int i = 1; i < bp.Width; i++)
-        for (int j = 1; j < bp.Height; j++)
-        {
-          c = bp.GetPixel(i, j);
-          if (((c.R + c.B + c.G) / 3) < THRESHOLD)
-          {
-            //:If the grayscale is less than threshold -> White otherwise, black
-            bp.SetPixel(i, j, Color.Black);
-          }
-          else
-          {
-            bp.SetPixel(i, j, Color.White);
-          }
-        }
-
-      //:Done!
+      OtsuThreshold.Otsu(ref bp);
       ready = true;
-      #endregion
+      return;
     }
 
     private void ts_BW_Click(object sender, EventArgs e)
@@ -544,5 +484,91 @@ namespace Color_Changer_v2._0
       th.Start();
     }
     #endregion
+
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    #region Remove Colour
+    private void RMRed()
+    {
+      RemoveColour.Remove(RemoveColour.RED, ref bp);
+      ready = true;
+    }
+
+    private void RMGreen()
+    {
+      RemoveColour.Remove(RemoveColour.GREEN, ref bp);
+      ready = true;
+    }
+
+    private void RMBlue()
+    {
+      RemoveColour.Remove(RemoveColour.BLUE, ref bp);
+      ready = true;
+    }
+
+    private void redToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (!ready) return;
+
+      //:We are now working, so we are not ready.
+      ready = false;
+      bp = new Bitmap(pb_IMG.Image);
+
+      //:Start the timer for when we are done with the below thread.
+      processing.Interval = 400;
+      processing.Start();
+
+      //:Thread to do bw.
+      //:-At a later date, this may be turned into 2 threads.
+      //:--One starting bottom, one top. Meet in the middle.
+      //:---So far there is no reason to do this.
+      Thread th = new Thread(new ThreadStart(RMRed));
+      th.Start();
+    }
+
+    #endregion
+
+    private void greenToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (!ready) return;
+
+      //:We are now working, so we are not ready.
+      ready = false;
+      bp = new Bitmap(pb_IMG.Image);
+
+      //:Start the timer for when we are done with the below thread.
+      processing.Interval = 400;
+      processing.Start();
+
+      //:Thread to do bw.
+      //:-At a later date, this may be turned into 2 threads.
+      //:--One starting bottom, one top. Meet in the middle.
+      //:---So far there is no reason to do this.
+      Thread th = new Thread(new ThreadStart(RMGreen));
+      th.Start();
+    }
+
+    private void blueToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (!ready) return;
+
+      //:We are now working, so we are not ready.
+      ready = false;
+      bp = new Bitmap(pb_IMG.Image);
+
+      //:Start the timer for when we are done with the below thread.
+      processing.Interval = 400;
+      processing.Start();
+
+      //:Thread to do bw.
+      //:-At a later date, this may be turned into 2 threads.
+      //:--One starting bottom, one top. Meet in the middle.
+      //:---So far there is no reason to do this.
+      Thread th = new Thread(new ThreadStart(RMBlue));
+      th.Start();
+    }
   }
 }
