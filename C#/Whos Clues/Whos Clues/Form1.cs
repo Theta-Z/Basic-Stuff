@@ -34,7 +34,7 @@ namespace Whos_Clues
 
     private void closeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      if (DialogResult.OK == MessageBox.Show("Really close?", "R U SHURE?", MessageBoxButtons.OKCancel))
+      if (DialogResult.OK == MessageBox.Show("Really close?", "Are you sure?", MessageBoxButtons.OKCancel))
         Close();
     }
 
