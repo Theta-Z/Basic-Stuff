@@ -1,0 +1,11 @@
+name: ProtectiveMama
+main: protectivemama.ProtectiveMama
+description: Mama says no!
+version: 1.1
+author: Seobi -- Taz <S.C>
+
+commands:
+  banItem:
+    description: no more use of this item on the server!
+  unbanItem:
+    description: allow use of this item

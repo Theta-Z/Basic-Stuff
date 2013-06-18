@@ -38,7 +38,7 @@ public class Teleporter
   
   public static boolean teleportCost(Player p1, Player p2)
   {
-    if(!Friends.areFriends(p2, p1))
+    if(!Friends.areFriends(p1, p2))
     {
       Messenger.send(p1, "You aren't friends with " + p2.getName() + ".");
       

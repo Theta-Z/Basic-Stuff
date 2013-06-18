@@ -17,7 +17,7 @@ public class DeathTracker implements Listener
   Location diedAt;
   
   @EventHandler(priority = EventPriority.HIGHEST)
-  public void onEntityDeath(PlayerDeathEvent e)
+  public void onPlayerDeath(PlayerDeathEvent e)
   {
     e.getEntity().sendMessage("You died at: [ X: " + ((int)e.getEntity().getLocation().getX())   +
                                             ",  Y: " + ((int)e.getEntity().getLocation().getY()) +
