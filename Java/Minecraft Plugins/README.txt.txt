@@ -1,0 +1,1 @@
+All these plugins require you to use craftbukkit as a library.

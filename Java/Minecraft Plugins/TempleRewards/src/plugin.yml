@@ -1,0 +1,31 @@
+name: BearNecessities
+main: templerewards.TempleRewards
+description: The simple.. bear necessities;
+version: 2.5
+author: Seobi -- Taz <S.C>
+
+commands:
+  StylishRide:
+    description: Give them a stylish ride.
+  GenericPrize:
+    description: Obvious.
+  fml:
+    description: He dead.
+  orly:
+    description: yarly
+  goback:
+    description: you messed up, we got you bro.
+  trade:
+    description: Trade things. Examples~ /trade help
+  smelt:
+    description: Smelt things(iron, sand, gold, nether). Example usage~ /smelt help
+  teleme2:
+    description: Teleport you to someone. usage~ /teleme2 bob
+  gift:
+    description: Give someone something. usage~ /gift help
+  less:
+    description: Reduce the amount of an item you have in your hand (good for getting rid of dirt)
+  friend:
+    description: Friend system. There is power in numbers. /friend username
+  removefriend:
+    description: Remove a friend. D;
