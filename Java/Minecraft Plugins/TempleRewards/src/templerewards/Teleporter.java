@@ -36,7 +36,7 @@ public class Teleporter
   }
   
   
-  public static boolean teleportCost(Player p1, Player p2)
+  private static boolean teleportCost(Player p1, Player p2)
   {
     if(!Friends.areFriends(p1, p2))
     {

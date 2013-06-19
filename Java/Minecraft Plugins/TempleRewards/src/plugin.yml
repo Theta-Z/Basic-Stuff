@@ -29,3 +29,7 @@ commands:
     description: Friend system. There is power in numbers. /friend username
   removefriend:
     description: Remove a friend. D;
+  flight:
+    description: Fly for 1 minute
+  flightall:
+    description: Use all nuggets for /flight

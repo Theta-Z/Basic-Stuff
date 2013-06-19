@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class Gifter
 {
-  public static boolean help(Player p)
+  private static boolean help(Player p)
   {
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Thanks for your interest in Gifter, " + p.getName() + "!");
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Usage:/gift friendName itemName\nCurrent gifts are:");
@@ -52,7 +52,7 @@ public class Gifter
     return true;
   }
   
-  public static boolean gift(Player p1, Player p2, Material m)
+  private static boolean gift(Player p1, Player p2, Material m)
   {
     if(!p1.getInventory().contains(m))
     {

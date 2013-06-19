@@ -83,7 +83,7 @@ public class Friends
   /**
    * Add P2 to P1's friend list.
    */
-  public static boolean addFriend(Player p1, Player p2)
+  private static boolean addFriend(Player p1, Player p2)
   {
     File player = new File("plugins" + File.separator + "TR_EXPSYSTEM" + 
                                   File.separator + p1.getName() + "_friends.info");

@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class Smelter
 {
-  public static boolean help(Player p)
+  private static boolean help(Player p)
   {
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Thanks for your interest in Smelter, " + p.getName() + "!");
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Usage:/smelt itemName\nCurrent trades are:");
@@ -57,7 +57,7 @@ public class Smelter
     return true;
   }
    
-  public static boolean smelt(Material m, Player p)
+  private static boolean smelt(Material m, Player p)
   {
      if(!p.getInventory().contains(m))
       {

@@ -23,14 +23,16 @@ public class TempleRewards extends JavaPlugin
 {
   Random r;
   DeathTracker dt;
+  Mover mover;
   
   @Override
   public void onEnable()
   {
-    Logger.getLogger("Minecraft").info("[TEMPLE REWARDS] Temple Rewards Activated.");
-    r = new Random();
+    Logger.getLogger("Minecraft").info("[Bear Necessities] Bear Necessities Activated.");
     
+    r = new Random(); 
     dt = new DeathTracker();
+    mover = new Mover();
     
     Bukkit.getServer().getPluginManager().registerEvents(dt, this);
     
@@ -42,7 +44,7 @@ public class TempleRewards extends JavaPlugin
   @Override
   public void onDisable()
   {
-    Logger.getLogger("Minecraft").info("[TEMPLE REWARDS] Disabled.");
+    Logger.getLogger("Minecraft").info("[Bear Necessities] Disabled.");
   }
   
   public boolean onCommand(CommandSender cs, Command cmd, String cmdlabel, String[] args)
@@ -56,7 +58,7 @@ public class TempleRewards extends JavaPlugin
     
     if(cmdlabel.toLowerCase().contains("goback"))
     {
-      ((Player)cs).teleport(dt.diedAt);
+      ((Player)cs).teleport(dt.diedAt(cs));
       return false;
     }
     
@@ -64,6 +66,14 @@ public class TempleRewards extends JavaPlugin
     //: less
     if(cmdlabel.toLowerCase().contains("less"))
       return Less.Main(cs);
+    //==========================================================================
+    //: flight
+    if(cmdlabel.toLowerCase().contains("flightall"))
+      return mover.Main(cs);
+    //==========================================================================
+    //: flight
+    if(cmdlabel.toLowerCase().contains("flight"))
+      return mover.Main(cs, args);//:unsure if I want to allow paying for others flight yet
     
     //==========================================================================
     //: No commands past here have no arguments.

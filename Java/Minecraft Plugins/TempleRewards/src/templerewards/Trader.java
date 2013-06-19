@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class Trader
 {
-  public static boolean help(Player p)
+  private static boolean help(Player p)
   {
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Thanks for your interest in Trader, " + p.getName() + "!");
     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "msg " + p.getName() + " Usage:/trade itemName\nCurrent trades are:");
@@ -55,7 +55,8 @@ public class Trader
 
     return true;
   }
-  public static boolean devolve(Material m, Player p)
+  
+  private static boolean devolve(Material m, Player p)
   {
     if(!p.getInventory().contains(m))
     {

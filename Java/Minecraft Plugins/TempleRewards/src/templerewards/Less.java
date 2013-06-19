@@ -21,7 +21,7 @@ public class Less
     return less(cs);
   }
   
-  public static boolean less(CommandSender cs)
+  private static boolean less(CommandSender cs)
   {
     Player p = (Player)cs;
     int slot = p.getInventory().getHeldItemSlot();
