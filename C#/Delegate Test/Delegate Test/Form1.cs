@@ -35,11 +35,6 @@ namespace Delegate_Test
       Close();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     #region Delegate Buttons
     private void btn_add_Click(object sender, EventArgs e)
     {
